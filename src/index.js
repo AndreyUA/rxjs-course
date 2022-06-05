@@ -17,16 +17,16 @@ const observable = new Observable((subscriber) => {
     console.log("setInterval is alive! This is memory leak.");
   }, 1000);
 
-  subscriber.complete();
+  // subscriber.complete();
 
   return () => {
     clearInterval(interval);
   };
 });
 
-console.log("before");
+// console.log("before");
 
-observable.subscribe({
+const subscription = observable.subscribe({
   next: (value) => {
     console.log(value);
   },
@@ -38,4 +38,8 @@ observable.subscribe({
   },
 });
 
-console.log("after");
+setTimeout(() => {
+  subscription.unsubscribe();
+}, 4000);
+
+// console.log("after");
