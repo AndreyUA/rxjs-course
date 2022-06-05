@@ -6,7 +6,25 @@ const observable = new Observable((subscriber) => {
   //   subscriber.next("hello rxjs");
   //   subscriber.complete();
   //   subscriber.next("hello again rxjs");
+
+  // Push sync data
+  subscriber.next("sync test");
+
+  // Push async data
+  const interval = setInterval(() => {
+    subscriber.next("async test");
+
+    console.log("setInterval is alive! This is memory leak.");
+  }, 1000);
+
+  subscriber.complete();
+
+  return () => {
+    clearInterval(interval);
+  };
 });
+
+console.log("before");
 
 observable.subscribe({
   next: (value) => {
@@ -19,3 +37,5 @@ observable.subscribe({
     console.error("ERROR ---> ", error);
   },
 });
+
+console.log("after");
