@@ -1,45 +1,9 @@
-import { Observable } from "rxjs";
+import { interval, timer } from "rxjs";
 
-const observable = new Observable((subscriber) => {
-  //   subscriber.next("hello world");
-  //   subscriber.error("this is error");
-  //   subscriber.next("hello rxjs");
-  //   subscriber.complete();
-  //   subscriber.next("hello again rxjs");
+const observableInterval = interval(1000);
 
-  // Push sync data
-  subscriber.next("sync test");
+const subscriptionInterval = observableInterval.subscribe(console.log);
 
-  // Push async data
-  const interval = setInterval(() => {
-    subscriber.next("async test");
+const observableTimer = timer(0, 1000);
 
-    console.log("setInterval is alive! This is memory leak.");
-  }, 1000);
-
-  // subscriber.complete();
-
-  return () => {
-    clearInterval(interval);
-  };
-});
-
-// console.log("before");
-
-const subscription = observable.subscribe({
-  next: (value) => {
-    console.log(value);
-  },
-  complete: () => {
-    console.log("complete called!");
-  },
-  error: (error) => {
-    console.error("ERROR ---> ", error);
-  },
-});
-
-setTimeout(() => {
-  subscription.unsubscribe();
-}, 4000);
-
-// console.log("after");
+const subscriptionTimer = observableTimer.subscribe(console.log);
