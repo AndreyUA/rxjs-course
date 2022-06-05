@@ -1,13 +1,11 @@
 import { Observable } from "rxjs";
 
 const observable = new Observable((subscriber) => {
-//   subscriber.next("hello world");
-//   subscriber.error("this is error");
-//   subscriber.next("hello rxjs");
-
-//   subscriber.complete();
-
-//   subscriber.next("hello again rxjs");
+  //   subscriber.next("hello world");
+  //   subscriber.error("this is error");
+  //   subscriber.next("hello rxjs");
+  //   subscriber.complete();
+  //   subscriber.next("hello again rxjs");
 });
 
 observable.subscribe({
