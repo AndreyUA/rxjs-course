@@ -8,16 +8,27 @@ import {
   scan,
   tap,
   mergeMap,
+  switchMap,
 } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 
 const button = document.getElementById("btn");
 
 const observable = fromEvent(button, "click").pipe(
-  mergeMap(
-    () => interval(1000).pipe(tap(console.log), take(6))
-    // ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1")
-  )
+  // switchMap(
+  //   () =>
+  //     interval(1000).pipe(
+  //       take(6),
+  //       tap({
+  //         complete() {
+  //           console.log("completed!");
+  //         },
+  //       })
+  //     )
+  //
+  // )
+
+  switchMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
 );
 const subscription = observable.subscribe({
   next(value) {
