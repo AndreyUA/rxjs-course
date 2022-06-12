@@ -9,6 +9,7 @@ import {
   tap,
   mergeMap,
   switchMap,
+  concatMap,
 } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 
@@ -28,7 +29,9 @@ const observable = fromEvent(button, "click").pipe(
   //
   // )
 
-  switchMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
+  // switchMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
+
+  concatMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
 );
 const subscription = observable.subscribe({
   next(value) {
