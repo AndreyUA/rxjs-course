@@ -1,6 +1,6 @@
-import { of } from "rxjs";
+import { from } from "rxjs";
 
-const observable = of([1, 2, 3, 4, 5]);
+const observable = from([1, 2, 3, 4, 5]);
 
 const subscription = observable.subscribe({
   next(value) {
