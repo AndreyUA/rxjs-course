@@ -1,16 +1,18 @@
 import { of, from, fromEvent, interval } from "rxjs";
 import { map, pluck, filter, reduce, take, scan, tap } from "rxjs/operators";
+import { ajax } from "rxjs/ajax";
 
-const observable = interval(500).pipe(
-  take(5),
-  tap(console.log),
-  reduce((acc, value) => acc + value, 0)
-  // scan((acc, value) => acc + value, 0)
+const button = document.getElementById("btn");
+
+const observable = fromEvent(button, "click").pipe(
+  map(() => {
+    return ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1");
+  })
 );
 
 const subscription = observable.subscribe({
   next(value) {
-    console.log(value);
+    value.subscribe(console.log);
   },
   complete() {
     console.log("completed!");
