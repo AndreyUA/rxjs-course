@@ -1,7 +1,10 @@
-import { of, from, fromEvent } from "rxjs";
-import { map, pluck, filter, reduce } from "rxjs/operators";
+import { of, from, fromEvent, interval } from "rxjs";
+import { map, pluck, filter, reduce, take } from "rxjs/operators";
 
-const observable = of(1, 2, 3).pipe(reduce((acc, value) => acc + value, 0));
+const observable = interval(500).pipe(
+  take(5),
+  reduce((acc, value) => acc + value, 0)
+);
 
 const subscription = observable.subscribe({
   next(value) {
