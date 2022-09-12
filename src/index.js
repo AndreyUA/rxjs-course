@@ -10,28 +10,14 @@ import {
   mergeMap,
   switchMap,
   concatMap,
+  exhaustMap,
 } from "rxjs/operators";
 import { ajax } from "rxjs/ajax";
 
 const button = document.getElementById("btn");
 
 const observable = fromEvent(button, "click").pipe(
-  // switchMap(
-  //   () =>
-  //     interval(1000).pipe(
-  //       take(6),
-  //       tap({
-  //         complete() {
-  //           console.log("completed!");
-  //         },
-  //       })
-  //     )
-  //
-  // )
-
-  // switchMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
-
-  concatMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
+  exhaustMap(() => ajax.getJSON("https://jsonplaceholder.typicode.com/todos/1"))
 );
 const subscription = observable.subscribe({
   next(value) {
